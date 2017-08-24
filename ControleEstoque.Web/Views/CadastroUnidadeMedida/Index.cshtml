@@ -1,0 +1,78 @@
+﻿@model List<ControleEstoque.Web.Models.UnidadeMedidaModel>
+@{
+    ViewBag.Title = "Cadastro de Unidade de Medidas";
+    Layout = "~/Views/Shared/_Cadastro.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/Cadastro/UnidadeMedida.css" rel="stylesheet" />
+}
+
+@section TituloGrid{
+    <th>Nome</th>
+<th>Sigla</th>
+    <th>Ativo</th>
+    <th>Ação</th>
+}
+
+@section LinhaGrid {
+    @{
+        var linha = 0;
+        foreach (var item in Model)
+        {
+            linha++;
+            if (linha <= ViewBag.MaxLinhasPorPagina)
+            {
+                <tr data-id="@item.Id">
+                    <td>@item.Nome</td>
+                    <td>@item.Sigla</td>
+                    <td>@{ var situacao = (item.Ativo ? "Sim" : "Não");}@situacao</td>
+                    <td>
+                        <a id="btn_alterar" class="btn btn-primary btn-alterar" role="button"><i class="glyphicon glyphicon-pencil"></i> Alterar</a>
+                        <a id="btn_excluir" class="btn btn-danger btn-excluir" role="button"><i class="glyphicon glyphicon-trash"></i> Excluir</a>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+}
+
+@section CamposCadastro {
+    <div class="row">
+        <div class="form-group">
+            @Html.Label("txt_nome", "Nome", new { @class = "col-md-3 control-label" })
+            <div class="col-md-12">
+                @Html.TextBox("txt_nome", null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("txt_sigla", "Sigla", new { @class = "col-md-3 control-label" })
+            <div class="col-md-12">
+                @Html.TextBox("txt_sigla", null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("cbx_ativo", "Ativo", new { @class = "col-md-3 control-label" })
+            <div class="col-md-12">
+                @Html.CheckBox("cbx_ativo")
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <script>
+        var tituloPagina = '@ViewBag.Title',
+            urlExclusao = '@Url.Action("ExcluirUnidadeMedidaId", "CadastroUnidadeMedida")',
+            urlAlterar = '@Url.Action("ObterUnidadeMedidaId", "CadastroUnidadeMedida")',
+            urlConfirmar = '@Url.Action("SalvarUnidadeMedida", "CadastroUnidadeMedida")',
+            urlPaginacao = '@Url.Action("ObterUnidadeMedidaGrid", "CadastroUnidadeMedida")';
+    </script>
+    <script src="~/Scripts/Cadastro/UnidadeMedida.js"></script>
+    }

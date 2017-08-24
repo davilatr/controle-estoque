@@ -1,0 +1,70 @@
+﻿@model List<ControleEstoque.Web.Models.GrupoProdutoModel>
+@{
+    Layout = "~/Views/Shared/_Cadastro.cshtml";
+    ViewBag.Title = "Cadastro de Grupo de Produtos";
+}
+
+@section Styles {
+    <link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/Cadastro/GrupoProduto.css" rel="stylesheet" />
+}
+
+@section TituloGrid{
+    <th>Nome</th>
+    <th>Ativo</th>
+    <th>Ação</th>
+}
+
+@section LinhaGrid {
+    @{
+        var linha = 0;
+        foreach (var item in Model)
+        {
+            linha++;
+            if (linha <= ViewBag.MaxLinhasPorPagina)
+            {
+                <tr data-id="@item.Id">
+                    <td>@item.Nome</td>
+                    <td>@{ var situacao = (item.Ativo ? "Sim" : "Não");}@situacao</td>
+                    <td>
+                        <a id="btn_alterar" class="btn btn-primary btn-alterar" role="button"><i class="glyphicon glyphicon-pencil"></i> Alterar</a>
+                        <a id="btn_excluir" class="btn btn-danger btn-excluir" role="button"><i class="glyphicon glyphicon-trash"></i> Excluir</a>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+}
+
+@section CamposCadastro {
+    <div class="row">
+        <div class="form-group">
+            @Html.Label("txt_nome", "Nome", new { @class = "col-md-3 control-label" })
+            <div class="col-md-12">
+                @Html.TextBox("txt_nome", null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("cbx_ativo", "Ativo", new { @class = "col-md-3 control-label" })
+            <div class="col-md-12">
+                @Html.CheckBox("cbx_ativo")
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <script>
+        var tituloPagina = '@ViewBag.Title',
+            urlExclusao = '@Url.Action("ExcluirGrupoProdutoId", "CadastroGrupoProduto")',
+            urlAlterar = '@Url.Action("ObterGrupoProdutoId", "CadastroGrupoProduto")',
+            urlConfirmar = '@Url.Action("SalvarGrupoProduto", "CadastroGrupoProduto")',
+            urlPaginacao = '@Url.Action("ObterGrupoProdutoGrid", "CadastroGrupoProduto")';
+    </script>
+    <script src="~/Scripts/Cadastro/GrupoProduto.js"></script>
+}
