@@ -6,12 +6,13 @@ using System.Web.Mvc;
 
 namespace ControleEstoque.Web.Controllers
 {
+    [Authorize(Roles = "Gerente, Administrativo, Operador")]
     public class CadastroGrupoProdutoController : Controller
     {
         private const int _maxLinhasPorPagina = 6;
 
 
-        [Authorize]
+        
         // public ActionResult ObterGrupoProduto()
         public ActionResult Index()
         {
@@ -30,9 +31,8 @@ namespace ControleEstoque.Web.Controllers
             return View(lista);
         }
 
-        [Authorize]
-        [Authorize]
-        [ValidateAntiForgeryToken]
+        
+        
         public JsonResult ObterGrupoProdutoGrid(int pagina, int tamPag)
         {
             var lista = GrupoProdutoModel.Obter(pagina, tamPag);
@@ -41,7 +41,6 @@ namespace ControleEstoque.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
         public JsonResult ObterGrupoProdutoId(int id)
         {
@@ -49,7 +48,7 @@ namespace ControleEstoque.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Gerente")]
         [ValidateAntiForgeryToken]
         public JsonResult ExcluirGrupoProdutoId(int id)
         {
@@ -58,7 +57,6 @@ namespace ControleEstoque.Web.Controllers
 
 
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
         public JsonResult SalvarGrupoProduto(GrupoProdutoModel model)
         {
