@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace ControleEstoque.Web.Models
 {
