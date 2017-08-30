@@ -1,12 +1,9 @@
-﻿using System;
+﻿using ControleEstoque.Web.Helpers;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using ControleEstoque.Web.Helpers;
-using System.Data;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace ControleEstoque.Web.Models
 {
